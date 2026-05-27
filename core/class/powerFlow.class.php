@@ -606,6 +606,22 @@ class powerFlow extends eqLogic
 									if ($load['maxPower'] != '') log::add(__CLASS__, 'debug', '| KO  Load N° ' . $i2 . ' - Max power is not numeric !');
 								}
 							} else $result_load[$i] = $result_load[$i] + array('max_power' => false);
+							///  LOAD MIN  \\\
+							$result_load[$i]['min_power'] = 0;
+							if (isset($load['minPower'])) {
+								if (preg_match("/^\#(variable\(.*?\))\#$/", $load['minPower'], $dataStore)) {
+									$result = jeedom::evaluateExpression($dataStore[1]);
+									if (is_numeric($result)) {
+										$result_load[$i]['min_power'] = $result;
+									} else {
+										log::add(__CLASS__, 'debug', '|  KO  Load N° ' . $i2 . ' - Min power [' . $dataStore[1] . ' => ' . $result . '] is not numeric !');
+									}
+								} else if (is_numeric($load['minPower'])) {
+									$result_load[$i]['min_power'] = $load['minPower'];
+								} else {
+									if ($load['minPower'] != '') log::add(__CLASS__, 'debug', '|  KO  Load N° ' . $i2 . ' - Min power => ' . $load['minPower'] . ' is not numeric !');
+								}
+							}
 							///  LOAD ALERT  \\\
 							if (isset($load['maxAlert'])) {
 								if (preg_match("/^\#(variable\(.*?\))\#$/", $load['maxAlert'], $dataStore)) {
@@ -635,7 +651,7 @@ class powerFlow extends eqLogic
 							$i++;
 						} else log::add(__CLASS__, 'debug', '| KO  Load N° ' . $i2 . ' - power::cmd not command valid !');
 					} else {
-						log::add(__CLASS__, 'debug', '| [INFO] Load N° ' . $i2 . ' masqué.');
+						log::add(__CLASS__, 'debug', '| [INFO] Load N° ' . $i2 . ' - Masqué');
 						$result_load[$i] = array('power::cmd' => false, 'max_power' => false, 'max_alert' => false, 'name' => false, 'icon' => false);
 						//$has_load = true;
 						$i++;
