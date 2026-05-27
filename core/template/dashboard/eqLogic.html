@@ -3245,7 +3245,7 @@
           ///  ICON  \\\
           if (!config#uid#.battery.icon) {
             document.getElementById("battery-animate-#uid#").innerHTML = getBatteryIcon#uid#(config#uid#.battery.state.state, config#uid#.battery.soc.shutdown)
-            //document.getElementById("battery-icon-#uid#").innerHTML = getBatteryIcon#uid#(config#uid#.battery.state.state)
+            if (config#uid#.battery.autoColorBattery) {
               ///  set color icon & state  \\\
               let color_battery = 'var(--battery-color-#uid#)'
               if (config#uid#.battery.state.state < 25) color_battery = 'var(--battery-state-0-#uid#)'
