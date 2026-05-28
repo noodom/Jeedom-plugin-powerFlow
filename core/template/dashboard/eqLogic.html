@@ -1413,7 +1413,7 @@
                         }
                       }
                       ///  DOT  \\\
-                      if (config#uid#.loads[num]['power'] > config#uid#.loads[num]['min_power']) document.getElementById("load" + num + "-dot-#uid#")?.setAttribute("fill", "var(--load-color-#uid#)")
+                      if (config#uid#.loads[num]['power'] >= config#uid#.loads[num]['min_power']) document.getElementById("load" + num + "-dot-#uid#")?.setAttribute("fill", "var(--load-color-#uid#)")
                       else document.getElementById("load" + num + "-dot-#uid#")?.setAttribute("fill", "transparent")
                       ///  ALERT  \\\
                       if (isset(config#uid#.loads[num].max_alert) && config#uid#.loads[num].max_alert && config#uid#.loads[num].power >= config#uid#.loads[num].max_alert) {
@@ -1817,7 +1817,6 @@
           if (config#uid#.has_aux) {
             if (config#uid#.aux.daily.show) viewBox_x = Math.min(viewBox_x, 100)
             else viewBox_x = Math.min(viewBox_x, 190)
-            
           }
           if (config#uid#.has_solar) {
             if (config#uid#.solar.daily.show) viewBox_x = Math.min(viewBox_x, 160)
@@ -2368,7 +2367,7 @@
                 ///////////////
                 html += '<path id="load' + num_load + '-line-#uid#" d="' + path + '" fill="none" stroke="var(--load-color-#uid#)" stroke-width="1" stroke-miterlimit="10" />'
                 html += '<circle id="load' + num_load + '-dot-#uid#" cx="0" cy="0" r="3"  class="' + ((config#uid#.load.animate_load_enable === true) ? '' : 'hidden-#uid#') + '" '
-                html += 'fill="' + ((config#uid#.loads[load].power <= config#uid#.loads[load].min_power) ? 'transparent' : 'var(--load-color-#uid#)') + '">'
+                html += 'fill="' + ((config#uid#.loads[load].power < config#uid#.loads[load].min_power) ? 'transparent' : 'var(--load-color-#uid#)') + '">'
                 html += '<animateMotion id="anim_load' + num_load + '-#uid#" dur="3" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">'
                 html += '<mpath xlink:href="#load' + num_load + '-line-#uid#"></mpath></animateMotion></circle>'
                 ///////////////
@@ -2720,7 +2719,7 @@
             if (config#uid#.has_aux) {
               html += 'M 214 250 L 147 250 Q 139 250 139 258 L 139 ' + ((config#uid#.battery.power.show) ? 300 : 330)
             } else {
-                html += 'M 239 260 L 239 ' + ((config#uid#.battery.power.show) ? 300 : 330)
+              html += 'M 239 260 L 239 ' + ((config#uid#.battery.power.show) ? 300 : 330)
             }
             html += '" fill="none" stroke="var(--battery-color-#uid#)" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>'
             html += '<circle id="battery-dot-charge-#uid#" cx="0" cy="0" r="3" fill="transparent">'
