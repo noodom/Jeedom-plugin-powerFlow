@@ -525,6 +525,14 @@ function addLoad(_action) {
 
       div += '</div>'
       div += '<div class="col-lg-4">'
+        // Min Power
+        div += '<div class="input-group">'
+          div += '<span class="input-group-addon roundedLeft" style="min-width: 110px;">{{Min.}} <sup><i class="fas fa-question-circle" title="{{Puissance minimale pour activer l\'animation.}}"></i></sup></span>'
+          div += '<input class="loadAttr form-control" data-l1key="minPower">'
+          div += '<span class="input-group-btn">'
+            div += '<a class="btn btn-default cursor bt_selectDataStore roundedRight" data-type="minPower" title="{{Choisir une variable}}"><i class="fas fa-calculator"></i></a>'
+          div += '</span>'
+        div += '</div>'
         // Icon 1
         div += '<div class="input-group">'
           div += '<span class="input-group-addon roundedLeft input-group-addon" style="min-width: 110px;">'
